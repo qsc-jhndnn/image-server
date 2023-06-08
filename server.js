@@ -45,11 +45,15 @@ return;
   res.setHeader('Content-Type', 'image/jpeg');
 
   // Generate a random image
-  const canvas = createCanvas(300, 300);
+  const canvas = createCanvas(800, 800);
   const ctx = canvas.getContext('2d');
 
   // Draw a random background color
   ctx.fillStyle = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+  let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop(0, `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`)
+  gradient.addColorStop(0.5, `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`)
+  ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Draw a random text
@@ -57,6 +61,8 @@ return;
   const fontSize = Math.floor(Math.random() * 100) + 50;
   ctx.font = `${fontSize}px Arial`;
   ctx.fillStyle = '#ffffff';
+
+
   ctx.textAlign = 'center';
   ctx.fillText(text, canvas.width / 2, canvas.height / 2 + fontSize / 3);
 
@@ -65,7 +71,7 @@ return;
   res.write(image);
   res.end();
 });
-var port = process.env.PORT || '3000';
+var port = process.env.PORT || '8080';
 console.log(`port is ${port}`);
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
