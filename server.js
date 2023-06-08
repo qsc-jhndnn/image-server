@@ -65,7 +65,8 @@ return;
   res.write(image);
   res.end();
 });
-
-server.listen(3000, () => {
-  console.log('Server running at http://localhost:3000/');
+var port = process.env.PORT || '3000';
+console.log(`port is ${port}`);
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
 });
